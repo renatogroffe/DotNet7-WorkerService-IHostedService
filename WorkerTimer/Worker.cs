@@ -10,7 +10,6 @@ public class Worker : IHostedService
     private readonly ApplicationState _applicationState;
     private Timer? _timer;
 
-
     public Worker(ILogger<Worker> logger)
     {
         _logger = logger;
@@ -19,6 +18,7 @@ public class Worker : IHostedService
             .FrameworkDescription} - Ambiente: {Environment.MachineName} - Kernel: {Environment
             .OSVersion.VersionString}");
         _applicationState = new ApplicationState();
+        DisplayCurrentTime(_applicationState);
         LogStatusApplication("Constructor");
     }
 
@@ -34,7 +34,7 @@ public class Worker : IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        _timer?.Change(Timeout.Infinite, 0);
+        _timer!.Change(Timeout.Infinite, 0);
         _applicationState.StopAsync = true;
         LogStatusApplication(nameof(StopAsync));
         return Task.CompletedTask;
