@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using WorkerTimer.Models;
 
@@ -13,6 +14,10 @@ public class Worker : IHostedService
     public Worker(ILogger<Worker> logger)
     {
         _logger = logger;
+        _logger.LogInformation("***** Testes com .NET 7 | Utilizando IHostedService *****");
+        _logger.LogInformation($"Versao do .NET em uso: {RuntimeInformation
+            .FrameworkDescription} - Ambiente: {Environment.MachineName} - Kernel: {Environment
+            .OSVersion.VersionString}");
         _applicationState = new ApplicationState();
         LogStatusApplication("Constructor");
     }
